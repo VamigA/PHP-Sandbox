@@ -27,6 +27,12 @@ class Page
      */
     public $toRender = [];
 
+    /**
+     * Result that is sent to the user as JSON (for API).
+     *
+     * @var array
+     */
+    public $toJSON = [];
 
     /**
      * Concrete router instance which dispatches pages by its aliases.
@@ -45,6 +51,7 @@ class Page
     public function __construct(string $alias, array $props = [])
     {
         $this->alias = $alias;
+        $this->toRender = $props;
     }
 
     /**
@@ -95,6 +102,7 @@ class Page
         if (!class_exists($scenarioName)) {
             return null;
         }
+
         /** @var Scenario $scenario */
         $scenario = new $scenarioName();
         $result = $scenario->run($req);
@@ -102,6 +110,11 @@ class Page
         if (isset($result['toRender'])) {
             $this->toRender = array_merge($this->toRender, $result['toRender']);
         }
+
+        if (isset($result['toJSON'])) {
+            $this->toJSON = array_merge($this->toJSON, $result['toJSON']);
+        }
+
         return $this;
     }
 }

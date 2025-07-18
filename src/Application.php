@@ -13,6 +13,7 @@ use \Chat\Util\Logger;
 class Application
 {
     use Inject\HtmlRenderer;
+    use Inject\JSONRenderer;
 
 
     /**
@@ -26,7 +27,12 @@ class Application
             $request->parseSuperGlobal();
             $page = Page::create($request->page);
             $page = $page->process($request);
-            $this->initHtmlRenderer()->renderPage($page);
+
+            if ($page->toRender) {
+                $this->initHtmlRenderer()->renderPage($page);
+            } elseif ($page->toJSON) {
+                $this->initJsonRenderer()->renderPage($page);
+            }
         } catch (\Throwable $e) {
             if (Conf::$isDebugMode) {
                 throw $e;
@@ -55,6 +61,9 @@ class Application
                     Conf::$isDebugMode,
                     PROJECT_ROOT.'/.cache/twig/'
                 );
+            },
+            'JsonRenderer' => function () {
+                return new Renderer\JSON();
             },
             'MySQL' => function () {
                 return new Database\MySQLDatabase(

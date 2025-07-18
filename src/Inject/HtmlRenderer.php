@@ -31,6 +31,7 @@ trait HtmlRenderer
         if (!isset($this->HtmlRenderer)) {
             $this->HtmlRenderer = Injector::make('HtmlRenderer');
         }
+
         return $this->HtmlRenderer;
     }
 }

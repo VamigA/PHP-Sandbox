@@ -3,7 +3,6 @@
 namespace Chat\Scenario;
 
 use \Chat\Http\Request;
-use \Chat\Inject;
 use \Chat\Scenario;
 
 
@@ -12,15 +11,12 @@ use \Chat\Scenario;
  */
 class Index implements Scenario
 {
-    use Inject\HtmlRenderer;
-
-
     /**
      * Runs scenario of index page.
      *
-     * @param Request $req      HTTP request to index page.
+     * @param Request $req  HTTP request to index page.
      *
-     * @return array    Result of index page scenario.
+     * @return array  Result of index page scenario.
      */
     public function run(Request $req): array
     {

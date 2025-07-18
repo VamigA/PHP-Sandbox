@@ -60,7 +60,7 @@ class Twig implements Renderer
      *
      * @param Page $page  Page to render.
      */
-    public function renderPage(Page $page)
+    public function renderPage(Page $page): void
     {
         echo $this->renderHtml('pages/'.$page->alias, $page->toRender);
     }
@@ -68,10 +68,10 @@ class Twig implements Renderer
     /**
      * Renders HTML template specified by its alias.
      *
-     * @param string $alias     Alias of template to be rendered.
-     * @param array $params     Parameters for template rendering.
+     * @param string $alias  Alias of template to be rendered.
+     * @param array $params  Parameters for template rendering.
      *
-     * @return string   Rendered HTML template.
+     * @return string  Rendered HTML template.
      */
     public function renderHtml(string $alias, array $params): string
     {

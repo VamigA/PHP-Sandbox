@@ -31,6 +31,7 @@ trait MySQL
         if (!isset($this->MySQL)) {
             $this->MySQL = Injector::make('MySQL');
         }
+
         return $this->MySQL;
     }
 }

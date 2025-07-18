@@ -16,6 +16,7 @@ class Router
      */
     protected $pages = [
         'index' => [],
+        'api/graphql' => [],
         '404' => [],
     ];
 
