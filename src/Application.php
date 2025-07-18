@@ -6,6 +6,7 @@ use \Chat\Http\Request;
 use \Chat\Util\LazyServiceLocator;
 use \Chat\Util\Logger;
 
+
 /**
  * Represents a Chat web application.
  */
@@ -27,10 +28,11 @@ class Application
             $page = $page->process($request);
             $this->initHtmlRenderer()->renderPage($page);
         } catch (\Throwable $e) {
-            if (Conf::$isDebugMode)
+            if (Conf::$isDebugMode) {
                 throw $e;
-            else
+            } else {
                 Logger::log($this, $e);
+            }
         }
     }
 
@@ -55,7 +57,12 @@ class Application
                 );
             },
             'MySQL' => function () {
-                throw new \Exception('Not Implemented');
+                return new Database\MySQLDatabase(
+                    Conf::$MySQL['host'],
+                    Conf::$MySQL['name'],
+                    Conf::$MySQL['user'],
+                    Conf::$MySQL['pass']
+                );
             },
         ]);
     }

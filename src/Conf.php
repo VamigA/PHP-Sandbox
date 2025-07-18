@@ -16,6 +16,11 @@ class Conf
      */
     public static $isDebugMode = false;
 
+    /**
+     * Path to the folder with logs.
+     *
+     * @var string
+     */
     public static $logsFolder = '';
 
     /**
@@ -29,6 +34,7 @@ class Conf
         'user' => '',
         'pass' => '',
     ];
+
 
     /**
      * Parses external configuration file and overrides configuration
