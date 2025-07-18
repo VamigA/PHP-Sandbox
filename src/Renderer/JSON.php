@@ -19,7 +19,7 @@ class JSON implements Renderer
      */
     public function renderPage(Page $page): void
     {
-		header('Content-Type: application/json; charset=utf-8');
+        header('Content-Type: application/json; charset=utf-8');
         echo $this->renderHtml($page->alias, $page->toJSON);
     }
 
