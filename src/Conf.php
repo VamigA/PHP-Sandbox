@@ -16,6 +16,7 @@ class Conf
      */
     public static $isDebugMode = false;
 
+    public static $logsFolder = '';
 
     /**
      * Contains credentials and settings of MySQL databases used by application.

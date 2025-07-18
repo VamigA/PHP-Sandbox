@@ -2,6 +2,8 @@
 
 self::$isDebugMode = true;
 
+self::$logsFolder = 'logs';
+
 self::$MySQL = [
     'host' => $_ENV['CONF_MYSQL_HOST'],
     'name' => $_ENV['CONF_MYSQL_DB'],

@@ -4,7 +4,7 @@ namespace Chat;
 
 use \Chat\Http\Request;
 use \Chat\Util\LazyServiceLocator;
-
+use \Chat\Util\Logger;
 
 /**
  * Represents a Chat web application.
@@ -26,9 +26,11 @@ class Application
             $page = Page::create($request->page);
             $page = $page->process($request);
             $this->initHtmlRenderer()->renderPage($page);
-        } catch (\Exception $e) {
-            // Users don't must to see Exception - need to do something
-            throw $e;
+        } catch (\Throwable $e) {
+            if (Conf::$isDebugMode)
+                throw $e;
+            else
+                Logger::log($this, $e);
         }
     }
 

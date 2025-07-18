@@ -67,7 +67,8 @@ COPY --chown=nobody _docker/app/rootfs/ /
 RUN chmod +x /docker-entrypoint.sh
 
 # Setup document root
-RUN mkdir -p /var/www/app
+RUN mkdir -p /var/www/app && \
+  mkdir -p /var/www/app/logs
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
@@ -76,6 +77,7 @@ EXPOSE 8080
 
 # Make sure files/folders needed by the processes are accessible when they run under the nobody user
 RUN chown -R nobody.nobody /var/www/app && \
+  chown -R nobody:nobody /var/www/app/logs && \
   chown -R nobody.nobody /run && \
   chown -R nobody.nobody /var/lib/nginx && \
   chown -R nobody.nobody /var/log/nginx

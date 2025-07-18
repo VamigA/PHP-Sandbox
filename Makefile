@@ -25,7 +25,7 @@ up: docker.up
 #	make docker.down
 
 docker.down:
-	docker-compose down --rmi=local -v
+	docker compose down --rmi=local -v
 
 
 
@@ -35,7 +35,7 @@ docker.down:
 #	make docker.up [rebuild=(no|yes)]
 
 docker.up: docker.down
-	docker-compose up --abort-on-container-exit \
+	docker compose up --abort-on-container-exit \
 		$(if $(call eq,$(rebuild),yes),--build,)
 
 
