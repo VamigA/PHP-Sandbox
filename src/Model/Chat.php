@@ -41,6 +41,26 @@ class Chat
 
 
     /**
+     * Creates chat's model from database's row.
+     *
+     * @param array $row  Row from database's table.
+     *
+     * @return Chat  Chat's instance.
+     */
+    public static function fromRow(array $row): Chat
+    {
+        $instance = new Chat(
+            $row['user_1_id'],
+            $row['user_2_id']
+        );
+
+        $instance->id = $row['id'];
+        $instance->createdAt = $row['created_at'];
+
+        return $instance;
+    }
+
+    /**
      * Creates chat's model without saving it in the database.
      *
      * @param int $userId1  Chat's user 1 identifier in the database.
