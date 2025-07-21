@@ -69,7 +69,7 @@ class Params
      */
     public function Int($key): int
     {
-        return intval($this->params[$key]);
+        return (int)$this->params[$key];
     }
 
     /**

@@ -38,6 +38,12 @@ class Request
      */
     public $POST;
 
+    /**
+     * Contains JSON parameters of HTTP request.
+     *
+     * @var Params
+     */
+    public $JSON;
 
     /**
      * Creates new HTTP request with initialised empty parameters.
@@ -46,6 +52,7 @@ class Request
     {
         $this->GET = new Params([]);
         $this->POST = new Params([]);
+        $this->JSON = new Params([]);
     }
 
     /**
@@ -55,17 +62,19 @@ class Request
      * @param string $uri       Full URI of HTTP request or just URI path.
      * @param array $query      Array of GET request parameters.
      * @param array $request    Array of POST request parameters.
+     * @param array $json       Array of JSON request parameters.
      *
      * @return $this    Itself for chained calls.
      */
     public function parse(
         string $host = '', string $uri = '',
-        array $query = [], array $request = []
+        array $query = [], array $request = [], array $json = []
     ): self {
         $this->host = $host;
         $this->page = $this->parseUriPath($uri);
         $this->GET = new Params($query);
         $this->POST = new Params($request);
+        $this->JSON = new Params($json);
         return $this;
     }
 
@@ -76,8 +85,10 @@ class Request
      */
     public function parseSuperGlobal(): self
     {
+        $json = json_decode(file_get_contents('php://input'), true) ?? [];
+
         return $this->parse(
-            $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI'], $_GET, $_POST,
+            $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI'], $_GET, $_POST, $json
         );
     }
 

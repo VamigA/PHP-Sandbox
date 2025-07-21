@@ -101,7 +101,8 @@ class Chat
         $db = $this->initMySQL()->getConnection();
 
 		$stmt = $db->prepare(
-            'SELECT * FROM `messages`
+            'SELECT *
+            FROM `messages`
 			WHERE `chat_id` = ?
 			ORDER BY `created_at` ASC'
         );

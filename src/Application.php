@@ -28,15 +28,16 @@ class Application
             $page = Page::create($request->page);
             $page = $page->process($request);
 
-            if ($page->toRender) {
+            if (!$page->toJSON) {
                 $this->initHtmlRenderer()->renderPage($page);
-            } elseif ($page->toJSON) {
+            } else {
                 $this->initJsonRenderer()->renderPage($page);
             }
         } catch (\Throwable $e) {
             if (Conf::$isDebugMode) {
                 throw $e;
             } else {
+                http_response_code(500);
                 Logger::log($this, $e);
             }
         }

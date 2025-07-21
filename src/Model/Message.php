@@ -50,6 +50,8 @@ class Message
     /**
      * Creates message's model from database's row.
      *
+     * @param array $row  Row from database's table.
+     *
      * @return Message  Message's instance.
      */
     public static function fromRow(array $row): Message
